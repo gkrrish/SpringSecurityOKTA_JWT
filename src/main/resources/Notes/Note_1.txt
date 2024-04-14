@@ -1,0 +1,11 @@
+Spring Security :
+----------------
+Authentication : Checks the user is valid or not
+Authorization  : checks the user has the access to resource or not
+
+Way to check the Authentication :
+---------------------------------
+Form based validation
+Http based validation
+OAuth---meant for the Authentication and Authorization  ---if the our application talks with external application for that also this will give Authentication and Authoriation
+JWT -- meant for the Authentication and Authorization --it will used with in the application, it wont able to propagate to external application
