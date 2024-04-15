@@ -9,3 +9,73 @@ Form based validation
 Http based validation
 OAuth---meant for the Authentication and Authorization  ---if the our application talks with external application for that also this will give Authentication and Authoriation
 JWT -- meant for the Authentication and Authorization --it will used with in the application, it wont able to propagate to external application
+
+
+
+
+
+Is WebSecurityConfigureAdapter Deprecated:
+------------------------------------------
+https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
+
+what is the DSL ? why spring security has been Adopted the DSL mechanism?
+-------------------------------------------------------------------------
+in java we have the Builder design pattern, like method chaining looks good, same way, Fluent API also introduced insted of Pojo class in java for
+just easily readability purpose, even builder pattern have some other purpose but still people like for method chainging, 
+like way DSL also later in the programing world introduced, 
+
+example, if we want to use the maven in the Java side, it looks like, 
+
+List<Dependency> dependencies = new ArrayList<>();
+dependencies.add(new Dependency("groupId:artifactId:version"));
+
+// ... (add more dependencies)
+
+project.setDependencies(dependencies);
+
+with Mavan DSL :
+---------------
+<dependencies>
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>5.3.22</version>
+  </dependency>
+  </dependencies>
+
+
+like that is simplified, any way internally maven also by reading the xml file and converting the process has same as given above,
+but if we think in the developer perspective just we are writing the DSL manner,
+
+same way we have lot of things are there in DSL format, as we see Spring security also widley adopted the DSL kind of mechanism.
+
+Prior to version 3.2, Spring Security configuration involved verbose method calls:
+
+Java
+HttpSecurity http = ...;
+http.authorizeRequests()
+  .antMatchers("/login").permitAll()
+  .anyRequest().authenticated()
+  .and()
+  .formLogin()
+  .loginPage("/login")
+  .permitAll();
+
+Spring Security fluent API:
+
+Starting from version 3.2, Spring Security introduced a more fluent API resembling a DSL:
+
+Java
+HttpSecurity http = ...;
+http
+  .authorizeRequests(auth -> auth
+    .antMatchers("/login").permitAll()
+    .anyRequest().authenticated())
+  .formLogin(form -> form
+    .loginPage("/login")
+    .permitAll());
+
+Benefits:
+
+The fluent API allows chaining method calls, improving readability.
+It simplifies security configuration with less boilerplate code.
