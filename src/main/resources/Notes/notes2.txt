@@ -9,3 +9,8 @@ Spring Security's CSRF protection helps prevent such attacks.
 It adds a special CSRF token to your web pages.
 When you submit a form (e.g., login form), the browser includes this token along with the form data.
 Spring Security validates the token, ensuring the request genuinely originated from your browser and not a malicious site.
+
+
+https://docs.spring.io/spring-security/reference/index.html
+https://www.youtube.com/watch?v=bB6A490Uh5M
+
