@@ -18,20 +18,24 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-					.csrf(Customizer.withDefaults())
-					.authorizeHttpRequests(authorize->
-								authorize
-								.anyRequest()
-								.authenticated())
-					.httpBasic(Customizer.withDefaults())
-					.formLogin(Customizer.withDefaults());
-		
-		 return httpSecurity.build();
+				.authorizeHttpRequests(
+						authorize -> authorize
+									.requestMatchers("/employee/**")
+									.permitAll()
+									.anyRequest()
+									.authenticated())
+				.formLogin(
+						formLogin -> formLogin
+									.loginPage("/login")
+									.permitAll())
+				.rememberMe(Customizer.withDefaults());
+
+		return httpSecurity.build();
 
 	}
 
 	@Bean
-	 PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 }

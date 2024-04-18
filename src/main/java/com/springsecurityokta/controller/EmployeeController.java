@@ -13,4 +13,10 @@ public class EmployeeController {
 	public String get() {
 		return "test";
 	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/hello")
+	public String getWelcomePage() {
+		return "welcome.html";
+	}
 }
