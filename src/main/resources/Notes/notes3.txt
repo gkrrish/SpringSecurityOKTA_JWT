@@ -1,1 +1,2 @@
 https://www.youtube.com/watch?v=4wxcsai2tsg
+https://medium.com/@tanmaysaxena2904/spring-security-the-security-filter-chain-e09e1f53b73d
