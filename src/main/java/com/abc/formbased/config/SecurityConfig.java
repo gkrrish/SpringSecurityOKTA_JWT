@@ -1,11 +1,12 @@
-package com.springsecurityokta.loginAuthentication.config;
+/*package com.abc.formbased.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,18 +18,18 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity
+		/*httpSecurity
 				.authorizeHttpRequests(
 						authorize -> authorize
-									.requestMatchers("/employee/**")
-									.permitAll()
-									.anyRequest()
-									.authenticated())
-				.formLogin(
-						formLogin -> formLogin
-									.loginPage("/login")
-									.permitAll())
-				.rememberMe(Customizer.withDefaults());
+									.requestMatchers(HttpMethod.GET, "/api/employees").hasRole("EMPLOYEE")
+									.requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
+			                        .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
+			                        .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
+			                        .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+			                        )
+//				.httpBasic(AbstractHttpConfigurer::disable)
+				.httpBasic(csrf->csrf.disable());
+				
 
 		return httpSecurity.build();
 
@@ -38,4 +39,4 @@ public class SecurityConfig {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-}
+} */
