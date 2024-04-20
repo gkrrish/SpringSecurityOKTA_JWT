@@ -18,17 +18,16 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		/*httpSecurity
+		httpSecurity
 				.authorizeHttpRequests(
 						authorize -> authorize
-									.requestMatchers(HttpMethod.GET, "/api/employees").hasRole("EMPLOYEE")
-									.requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
+									.requestMatchers(HttpMethod.GET, "/employees").hasRole("EMPLOYEE")
+									.requestMatchers(HttpMethod.GET, "/employees/**").hasRole("EMPLOYEE")
 			                        .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
-			                        .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
-			                        .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+			                        .requestMatchers(HttpMethod.PUT,  "/employees").hasRole("MANAGER")
+			                        .requestMatchers(HttpMethod.DELETE, "/employees/**").hasRole("ADMIN")
 			                        )
-//				.httpBasic(AbstractHttpConfigurer::disable)
-				.httpBasic(csrf->csrf.disable());
+				.httpBasic(AbstractHttpConfigurer::disable);
 				
 
 		return httpSecurity.build();
