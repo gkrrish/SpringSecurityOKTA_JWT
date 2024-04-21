@@ -15,6 +15,7 @@ import com.abc.entity.User;
 import com.abc.repository.UserRepository;
 
 @Service
+//we has to be implement the userDetails to get our implementation
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;

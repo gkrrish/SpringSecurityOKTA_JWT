@@ -27,16 +27,13 @@ public class AuthController {
         return "index";
     }
 
-    // handler method to handle user registration form request
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        // create model object to store form data
         UserDto user = new UserDto();
         model.addAttribute("user", user);
         return "register";
     }
 
-    // handler method to handle user registration form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
@@ -54,7 +51,6 @@ public class AuthController {
         return "redirect:/register?success";
     }
 
-    // handler method to handle list of users
     @GetMapping("/users")
     public String users(Model model) {
         List<UserDto> users = userService.findAllUsers();
@@ -62,7 +58,6 @@ public class AuthController {
         return "users";
     }
 
-	// handler method to handle login request
     @GetMapping("/login")
     public String login() {
         return "login";

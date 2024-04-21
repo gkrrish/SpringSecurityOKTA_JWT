@@ -30,12 +30,14 @@ public class SpringSecurity {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
+                                // Permit access to the H2 Console
+                                .requestMatchers("/h2-console/**").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/users")
-                                .defaultSuccessUrl("/h2-console")
+                                .defaultSuccessUrl("/h2-console/**")
                                 .permitAll()
                 ).logout(
                         logout -> logout
