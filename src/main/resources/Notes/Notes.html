@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Filter Chain Configuration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .code {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+
+        .comment {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Security Filter Chain Configuration</h1>
+
+    <div class="code">
+        <p><span class="comment">// Initially HttpRequest from client ---&gt;ServletDispatcher---&gt;Filters---&gt;FilterChain---&gt;SecurityFilterChain---&gt;if Errors---&gt;Exception</span></p>
+        <p><span class="comment">// SecurityFilterChain---internally following steps will do</span></p>
+
+        <pre>
+@Bean
+SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    <span class="comment">// Http request checking Filter of it, this request what can access the Resources</span>
+    httpSecurity
+        <span class="comment">// First we need to filter if we have the customized filter are there based on before or after the some other filters</span>
+        .addFilterBefore(new BrowserFilter(), BasicAuthenticationFilter.class)
+        <span class="comment">// after custom filter we need to validate (authenticate) for that we are using the authorizeHttpRequest</span>
+        .authorizeHttpRequests(
+            <span class="comment">// this is lambda Customizer interface it implemented by AuthorizeHttpRequestsConfigurer or Manager for that in our implementation</span>
+            <span class="comment">// telling which end point should be allowed</span>
+            configure -> configure
+                .requestMatchers(HttpMethod.GET, "/employees/**").hasRole("ADMIN")
+                <span class="comment">// if we use the requestMatcher (String) then permitAll comes, here already we are restricting ADMIN, so permit all wont come</span>
+                .anyRequest()
+                <span class="comment">// if any request comes to /employees as ADMIN role members only we are AUTHENTICATING.</span>
+                .authenticated()
+        )
+        <span class="comment">// to validate whether the user is ADMIN or other ROLES giving the Login page sending them</span>
+        <span class="comment">// NOTE : how we are validing the USER, by using the basic authentication or LoginPage or some other stuff we need to give here</span>
+        <span class="comment">// Basic Authentication means Spring security given Login page will come</span>
+        .httpBasic(Customizer.withDefaults())
+        <span class="comment">// Note: 1. we restricted the URL 2. once the authentication correct then only allowing. 3. for authentication purpose login page created</span>
+        .csrf(
+            <span class="comment">// because internally we are calling the AbstractHttpconfigrer disabled only</span>
+            //csrfConfigurer -> csrfConfigurer.disable()
+            AbstractHttpConfigurer::disable
+        );
+
+    return httpSecurity.build();
+}
+        </pre>
+    </div>
+</body>
+
+</html>
+
+
+
+.authorizeHttpRequests(
+						authorize -> authorize
+									.requestMatchers(HttpMethod.GET, "/employees").hasRole("EMPLOYEE")
+									.requestMatchers(HttpMethod.GET, "/employees/**").hasRole("EMPLOYEE")
+			                        .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
+			                        .requestMatchers(HttpMethod.PUT,  "/employees").hasRole("MANAGER")
+			                        .requestMatchers(HttpMethod.DELETE, "/employees/**").hasRole("ADMIN")
+			                        )
+				.httpBasic(AbstractHttpConfigurer::disable);
+				

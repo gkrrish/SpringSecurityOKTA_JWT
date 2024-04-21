@@ -3,9 +3,9 @@ package com.springsecurityokta;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.abc.SpringSecurityOktaJwtApplication;
+import com.abc.SpringSecurityExample;
 
-@SpringBootTest(classes = SpringSecurityOktaJwtApplication.class)
+@SpringBootTest(classes = SpringSecurityExample.class)
 class SpringSecurityOktaJwtApplicationTests {
 
 	@Test

@@ -20,18 +20,17 @@ https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigu
 
 what is the DSL ? why spring security has been Adopted the DSL mechanism?
 -------------------------------------------------------------------------
-in java we have the Builder design pattern, like method chaining looks good, same way, Fluent API also introduced insted of Pojo class in java for
-just easily readability purpose, even builder pattern have some other purpose but still people like for method chainging, 
-like way DSL also later in the programing world introduced, 
+in java we have the Builder design pattern, like method chaining looks good, same way, Fluent API also introduced instead of Pojo class in java for
+just easily readability purpose, even builder pattern have some other purpose but still people like for method chaining, 
+like way DSL also later in the programming world introduced, 
 
 example, if we want to use the maven in the Java side, it looks like, 
 
 List<Dependency> dependencies = new ArrayList<>();
 dependencies.add(new Dependency("groupId:artifactId:version"));
-
-// ... (add more dependencies)
-
+..
 project.setDependencies(dependencies);
+
 
 with Mavan DSL :
 ---------------
@@ -47,7 +46,7 @@ with Mavan DSL :
 like that is simplified, any way internally maven also by reading the xml file and converting the process has same as given above,
 but if we think in the developer perspective just we are writing the DSL manner,
 
-same way we have lot of things are there in DSL format, as we see Spring security also widley adopted the DSL kind of mechanism.
+same way we have lot of things are there in DSL format, as we see Spring security also widely adopted the DSL kind of mechanism.
 
 Prior to version 3.2, Spring Security configuration involved verbose method calls:
 
@@ -79,3 +78,19 @@ Benefits:
 
 The fluent API allows chaining method calls, improving readability.
 It simplifies security configuration with less boilerplate code.
+
+
+
+
+CSRF :
+------
+Imagine you're logged in to your bank's website (Site A) on one browser tab. In another tab, you visit a malicious website (Site B). Site B might try to trick your browser into unknowingly performing actions on Site A (like transferring money) using your logged-in session.
+
+CSRF Protection:
+---------------
+
+Spring Security's CSRF protection helps prevent such attacks.
+It adds a special CSRF token to your web pages.
+When you submit a form (e.g., login form), the browser includes this token along with the form data.
+Spring Security validates the token, ensuring the request genuinely originated from your browser and not a malicious site.
+
